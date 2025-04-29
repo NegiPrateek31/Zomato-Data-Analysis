@@ -5,7 +5,7 @@ import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 
 # Load dataset
-file_path = ""
+file_path = "C:\\Users\\negip\\Desktop\\Prateek\\College\\SEM 4\\ds\\Project\\zomatodata.csv"
 df = pd.read_csv(file_path, encoding='latin1')
 
 # Clean column names
@@ -110,12 +110,18 @@ while True:
 
             elif eda_choice == '2':
                 online_delivery = df[df['HasOnlinedelivery'] == 'Yes']['Country'].value_counts()
-                sns.barplot(x=online_delivery.index, y=online_delivery.values)
-                plt.title('Online Delivery by Country')
-                plt.ylabel('Online Delivery')
-                plt.xlabel('Country')
-                plt.xticks(rotation=45)
-                plt.show()
+                if not online_delivery.empty:
+                    plt.figure(figsize=(10, 5))
+                    sns.barplot(x=online_delivery.index, y=online_delivery.values)
+                    plt.title('Online Delivery by Country')
+                    plt.ylabel('Number of Restaurants with Online Delivery')
+                    plt.xlabel('Country')
+                    plt.xticks(rotation=45)
+                    plt.tight_layout()
+                    plt.show()
+                else:
+                    print("No restaurants offer online delivery.")
+
 
             elif eda_choice == '3':
                 top_cuisines = df['Cuisines'].value_counts().head(10)
