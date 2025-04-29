@@ -5,7 +5,7 @@ import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 
 # Load dataset
-file_path = "C:\\Users\\negip\\Desktop\\Prateek\\College\\SEM 4\\ds\\Project\\zomatodata.csv"
+file_path = ""
 df = pd.read_csv(file_path, encoding='latin1')
 
 # Clean column names
