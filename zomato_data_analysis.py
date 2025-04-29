@@ -5,7 +5,7 @@ import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 
 # Load dataset
-file_path = "C:\\Users\\negip\\Desktop\\Prateek\\College\\SEM 4\\ds\\Project\\zomatodata.csv"
+file_path = ""
 df = pd.read_csv(file_path, encoding='latin1')
 
 # Clean column names
@@ -69,10 +69,14 @@ while True:
                 for col in cat_cols:
                     df[col] = le.fit_transform(df[col])
                 print("Label Encoding applied to all categorical columns.")
+                print("\nEncoded Data (first 5 rows):")
+                print(df.head())
 
             elif sub_choice == '2':
                 df = pd.get_dummies(df, drop_first=True)
                 print("One-Hot Encoding applied to categorical columns.")
+                print("\nEncoded Data (first 5 rows):")
+                print(df.head())
 
             elif sub_choice == '3':
                 break
@@ -89,9 +93,10 @@ while True:
 3. Top 10 cuisines
 4. Ratings distribution
 5. Price range vs aggregate rating
-6. Back to Main Menu
+6. Show skewness and kurtosis
+7. Back to Main Menu
 """)
-            eda_choice = input("Enter EDA choice (1-6): ")
+            eda_choice = input("Enter EDA choice (1-7): ")
 
             if eda_choice == '1':
                 country_restaurants = df['Country'].value_counts()
@@ -117,12 +122,14 @@ while True:
                 sns.barplot(y=top_cuisines.index, x=top_cuisines.values)
                 plt.title('Top 10 Cuisines')
                 plt.ylabel('Cuisines')
+                plt.xlabel('Count')
                 plt.show()
 
             elif eda_choice == '4':
                 sns.histplot(df['Aggregaterating'], bins=20, kde=True)
                 plt.title('Rating Distribution')
                 plt.xlabel('Aggregate Rating')
+                plt.ylabel('Frequency')
                 plt.show()
 
             elif eda_choice == '5':
@@ -133,6 +140,13 @@ while True:
                 plt.show()
 
             elif eda_choice == '6':
+                numeric_cols = df.select_dtypes(include=np.number).columns
+                print("\n--- Skewness ---")
+                print(df[numeric_cols].skew())
+                print("\n--- Kurtosis ---")
+                print(df[numeric_cols].kurt())
+
+            elif eda_choice == '7':
                 break
 
             else:
